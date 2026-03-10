@@ -73,6 +73,7 @@ class SheetManager:
     def __init__(self):
         self.client = None
         self.worksheet = None
+        self.script_sheet = None
         self.authenticate()
     
     def authenticate(self):
@@ -87,6 +88,11 @@ class SheetManager:
             self.client = gspread.authorize(creds)
             spreadsheet = self.client.open_by_key(GOOGLE_SHEETS_ID)
             self.worksheet = spreadsheet.sheet1
+            
+            try:
+                self.script_sheet = spreadsheet.get_worksheet(1)
+            except:
+                logger.warning("⚠️ Không tìm thấy sheet 'Kịch bản'")
             
             logger.info("✅ Kết nối Google Sheets thành công")
         
@@ -123,7 +129,7 @@ class SheetManager:
                     phone,
                     str(user_id),
                     username or "Unknown",
-                    "⏳ Chờ",
+                    "⏳ Chờ gửi",
                     "-",
                     "2"
                 ]
@@ -171,7 +177,7 @@ async def handle_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
         
         if success:
             phone_list = "\n".join([f"  ✓ {p}" for p in phones])
-            result = f"✅ Thêm thành công!\n\nSố điện thoại:\n{phone_list}\n\n⏱️ Sau 30 phút sẽ tự động gửi tin Zalo"
+            result = f"✅ Thêm thành công!\n\nSố điện thoại:\n{phone_list}\n\n📱 Các số sẽ được gửi tin Zalo sau 30 phút"
             await status_msg.edit_text(result)
         else:
             await status_msg.edit_text("❌ Lỗi lưu vào Google Sheets")
@@ -192,7 +198,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "1. Gửi ảnh chụp màn hình chứa số điện thoại\n"
         "2. Bot sẽ tự động đọc số điện thoại\n"
         "3. Lưu vào Google Sheets\n"
-        "4. Sau 30 phút sẽ tự động gửi tin Zalo\n\n"
+        "4. Sau 30 phút sẽ được gửi tin Zalo qua Zalo Growth Tool\n\n"
         "⚠️ Lưu ý: Ảnh phải rõ ràng, chữ dễ đọc"
     )
 
