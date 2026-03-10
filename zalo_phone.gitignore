@@ -1,0 +1,8 @@
+.env
+__pycache__/
+zalobot.env
+*.env
+*.pyc
+.DS_Store
+service_account.json
+*.log

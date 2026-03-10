@@ -1,0 +1,11 @@
+python-telegram-bot==20.3
+Pillow==10.0.0
+pytesseract==0.3.10
+gspread==6.0.0
+google-auth-oauthlib==1.1.0
+google-auth-httplib2==0.2.0
+python-dotenv==1.0.0
+selenium==4.15.2
+APScheduler==3.10.4
+undetected-chromedriver==3.5.4
+webdriver-manager==4.0.1
