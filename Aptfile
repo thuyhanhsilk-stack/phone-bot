@@ -1,0 +1,9 @@
+libpq-dev
+build-essential
+python3-dev
+libssl-dev
+libffi-dev
+libjpeg-dev
+zlib1g-dev
+tesseract-ocr
+tesseract-ocr-vie
